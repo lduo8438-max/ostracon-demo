@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ostracon — 三個真實 repo 的決策演化史</title>
+<style>
+:root {
+  --ground: #eceff1; --surface: #fff; --ink: #16191d; --muted: #6a7279;
+  --rule: #d4d9dd; --rule-strong: #aeb6bc; --voice: #8a5116; --voice-ground: #fbf4ea;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 48px 20px; background: var(--ground); color: var(--ink);
+  font: 13px/1.65 var(--mono); -webkit-font-smoothing: antialiased;
+}
+main { max-width: 62rem; margin: 0 auto; }
+h1 { margin: 0 0 6px; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; }
+.lede { color: var(--muted); margin: 0 0 8px; max-width: 44rem; }
+.lede b { color: var(--ink); }
+.note {
+  margin: 22px 0 30px; padding: 10px 13px; max-width: 44rem;
+  background: var(--voice-ground); border-left: 2px solid var(--voice); color: var(--voice);
+}
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+a.card {
+  display: block; padding: 16px; background: var(--surface); color: inherit;
+  border: 1px solid var(--rule); text-decoration: none;
+}
+a.card:hover { border-color: var(--ink); }
+.card h2 { margin: 0 0 3px; font-size: 13px; }
+.card .sub { color: var(--muted); margin-bottom: 11px; }
+.card dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; }
+.card dt { color: var(--muted); }
+.card dd { margin: 0; text-align: right; font-weight: 700; }
+.shows { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--rule); color: var(--muted); }
+footer { margin-top: 34px; color: var(--muted); }
+footer a { color: var(--ink); }
+</style>
+<main>
+  <h1>Ostracon</h1>
+  <p class="lede">
+    從 git history 重建程式碼的<b>決策演化史</b>：一段程式碼何時誕生、被哪幾次改動
+    重塑、每次的理由是什麼、以及哪些做法試過又被推翻。
+    <b>全程零 LLM</b>——這些畫面上的每一個字都來自 AST 解析、雜湊比對與逐字引文。
+  </p>
+  <p class="note">
+    意圖欄的空白是<b>真實的觀測值</b>，不是還沒載入。理由是稀有的：三個語料裡
+    說得出專屬理由的改動都不到 0.3%。這個工具的價值不在於把空格填滿。
+  </p>
+
+  <div class="grid">
+    <a class="card" href="./vuejs-core/">
+      <h2>vuejs/core</h2>
+      <div class="sub">7,156 commit</div>
+      <dl>
+        <dt>有專屬理由的改動</dt><dd>37 / 24,779</dd>
+        <dt>只有整批理由</dt><dd>656</dd>
+        <dt>被推翻的做法（A 級）</dt><dd>757</dd>
+      </dl>
+      <div class="shows">意圖層的正面展示。非 squash 歷史，理由指得到單一宣告。</div>
+    </a>
+
+    <a class="card" href="./create-t3-app/">
+      <h2>t3-oss/create-t3-app</h2>
+      <div class="sub">1,378 commit</div>
+      <dl>
+        <dt>有專屬理由的改動</dt><dd>4 / 1,594</dd>
+        <dt>只有整批理由</dt><dd>14</dd>
+        <dt>被推翻的做法（A 級）</dt><dd>102</dd>
+      </dl>
+      <div class="shows">
+        <b>誠實留白。</b>5 顆 release squash 銷毀了「哪句話對應哪次改動」的映射，
+        253 個候選因此不升格成意圖。
+      </div>
+    </a>
+
+    <a class="card" href="./osiris/">
+      <h2>osiris</h2>
+      <div class="sub">99 commit</div>
+      <dl>
+        <dt>有專屬理由的改動</dt><dd>0 / 796</dd>
+        <dt>只有整批理由</dt><dd>74</dd>
+        <dt>被推翻的做法（A 級）</dt><dd>94</dd>
+      </dl>
+      <div class="shows">
+        小型專案的樣子。<b>一次都沒有替單一宣告寫過理由</b>——那 74 條全部是
+        3 條引文共用的。
+      </div>
+    </a>
+  </div>
+
+  <footer>
+「被推翻的做法」只計 <b>A 級</b>——結構上可獨立驗證（git revert，或移除的與加入的
+    逐字相同）。C 級是「僅生命週期符合、未經證實」，不當成結論呈現。
+    每個語料都釘在固定的 commit，是快照不是即時服務。原始碼與方法論：
+    <a href="https://github.com/lduo8438-max/ostracon">github.com/lduo8438-max/ostracon</a>
+  </footer>
+</main>
