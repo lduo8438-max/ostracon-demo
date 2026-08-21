@@ -1,1 +1,1 @@
-{"repoId":1,"rootPath":"t3-oss/create-t3-app","changes":1594,"untouched":2201,"changesWithEntityIntent":4,"changesWithBatchIntent":14,"aggregate":{"candidates":253,"quotes":9,"commits":5}}
+{"repoId":1,"rootPath":"t3-oss/create-t3-app","changes":1594,"untouched":2201,"changesWithEntityIntent":4,"changesWithBatchIntent":14,"aggregate":{"candidates":253,"quotes":9,"commits":5},"ostracised":{"shown":102,"hiddenTests":0,"suspected":68}}

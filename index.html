@@ -37,6 +37,26 @@ a.card:hover { border-color: var(--ink); }
 footer { margin-top: 34px; color: var(--muted); }
 footer a { color: var(--ink); }
 </style>
+<script>
+// **數字一律由各語料的 summary.json 填，頁面裡不留任何手打的數字。**
+// 手填過一次就出過事：landing 寫「被推翻的做法 710」而 CLI 顯示 537，
+// 兩邊在數不同的母體（前者含測試骨架）。同一份 JSON 才不會再分岔。
+addEventListener("DOMContentLoaded", async () => {
+  for (const dl of document.querySelectorAll(".stats")) {
+    const corpus = dl.dataset.corpus;
+    try {
+      const s = await (await fetch(`./${corpus}/api/summary.json`)).json();
+      dl.innerHTML = [
+        ["有專屬理由的改動", `${s.changesWithEntityIntent} / ${s.changes}`],
+        ["只有整批理由", String(s.changesWithBatchIntent)],
+        ["被推翻的做法（A 級確證）", String(s.ostracised.shown)],
+      ].map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+    } catch {
+      dl.innerHTML = "<dt>載入失敗</dt><dd>—</dd>";
+    }
+  }
+});
+</script>
 <main>
   <h1>Ostracon</h1>
   <p class="lede">
@@ -53,39 +73,27 @@ footer a { color: var(--ink); }
     <a class="card" href="./vuejs-core/">
       <h2>vuejs/core</h2>
       <div class="sub">7,156 commit</div>
-      <dl>
-        <dt>有專屬理由的改動</dt><dd>37 / 24,779</dd>
-        <dt>只有整批理由</dt><dd>656</dd>
-        <dt>被推翻的做法（A 級）</dt><dd>710</dd>
-      </dl>
+      <dl class="stats" data-corpus="vuejs-core"></dl>
       <div class="shows">意圖層的正面展示。非 squash 歷史，理由指得到單一宣告。</div>
     </a>
 
     <a class="card" href="./create-t3-app/">
       <h2>t3-oss/create-t3-app</h2>
       <div class="sub">1,378 commit</div>
-      <dl>
-        <dt>有專屬理由的改動</dt><dd>4 / 1,594</dd>
-        <dt>只有整批理由</dt><dd>14</dd>
-        <dt>被推翻的做法（A 級）</dt><dd>102</dd>
-      </dl>
+      <dl class="stats" data-corpus="create-t3-app"></dl>
       <div class="shows">
-        <b>誠實留白。</b>5 顆 release squash 銷毀了「哪句話對應哪次改動」的映射，
-        253 個候選因此不升格成意圖。
+        <b>誠實留白。</b>release squash 銷毀了「哪句話對應哪次改動」的映射，
+        候選因此不升格成意圖。
       </div>
     </a>
 
     <a class="card" href="./osiris/">
       <h2>osiris</h2>
       <div class="sub">99 commit</div>
-      <dl>
-        <dt>有專屬理由的改動</dt><dd>0 / 796</dd>
-        <dt>只有整批理由</dt><dd>74</dd>
-        <dt>被推翻的做法（A 級）</dt><dd>94</dd>
-      </dl>
+      <dl class="stats" data-corpus="osiris"></dl>
       <div class="shows">
-        小型專案的樣子。<b>一次都沒有替單一宣告寫過理由</b>——那 74 條全部是
-        3 條引文共用的。
+        小型專案的樣子。<b>一次都沒有替單一宣告寫過理由</b>——整批理由那一欄
+        全部是少數幾條引文共用的。
       </div>
     </a>
   </div>
