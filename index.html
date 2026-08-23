@@ -34,6 +34,27 @@ a.card:hover { border-color: var(--ink); }
 .card dt { color: var(--muted); }
 .card dd { margin: 0; text-align: right; font-weight: 700; }
 .shows { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--rule); color: var(--muted); }
+
+/* 精選案例：一條被推翻的做法的完整故事。**與清單排序無關**——排序是資料的
+   性質，精選是編輯的選擇，兩者混在一起的話「為什麼這條在最上面」就答不出來。 */
+a.featured {
+  display: block; margin: 0 0 22px; padding: 16px 18px; background: var(--surface);
+  color: inherit; text-decoration: none; border: 1px solid var(--rule-strong);
+  border-left: 3px solid var(--voice); max-width: 44rem;
+}
+a.featured:hover { border-color: var(--ink); border-left-color: var(--voice); }
+.featured .kicker {
+  color: var(--voice); letter-spacing: .18em; text-transform: uppercase; font-size: 11px;
+}
+.featured h2 { margin: 6px 0 4px; font-size: 13px; }
+.featured .story { color: var(--muted); margin: 0 0 11px; }
+.featured ol { margin: 0; padding: 0; list-style: none; }
+.featured li { display: grid; grid-template-columns: 5.5rem 1fr; gap: 10px; padding: 3px 0; }
+.featured li span { color: var(--muted); }
+.featured q {
+  quotes: none; background: var(--voice-ground); color: var(--voice); padding: 0 4px;
+}
+.featured .after { margin: 10px 0 0; color: var(--muted); }
 footer { margin-top: 34px; color: var(--muted); }
 footer a { color: var(--ink); }
 </style>
@@ -68,6 +89,28 @@ addEventListener("DOMContentLoaded", async () => {
     意圖欄的空白是<b>真實的觀測值</b>，不是還沒載入。理由是稀有的：三個語料裡
     說得出專屬理由的改動都不到 0.3%。這個工具的價值不在於把空格填滿。
   </p>
+
+  <a class="featured"
+     href="./vuejs-core/#582d20e82801eed05b088cbbaacc1b71a04c5bb8da4b491011b0b69b68956445">
+    <div class="kicker">Featured excavation ／ 精選案例</div>
+    <h2>packages/reactivity/src/Dep.ts:hasBit</h2>
+    <p class="story">
+      用位元旗標加速依賴的重新追蹤——<b>當天引入，當天撤掉</b>。
+      Ostracon 只憑結構就找得到它：這個宣告誕生又消亡，而且移除掉的內容
+      與當初加入的<b>逐字相同</b>（A 級確證，git 層面可獨立驗證）。
+    </p>
+    <ol>
+      <li><span>2021-07-16</span>
+        <q>perf(reactivity): use bitwise dep markers to optimize re-tracking (#4017)</q></li>
+      <li><span>2021-07-16</span>
+        <q>refactor: reduce bundle size</q></li>
+    </ol>
+    <p class="after">
+      兩行都是 commit 主旨的<b>逐字引用</b>，不是抽取出來的理由——這兩顆 commit
+      都沒有因果標記，所以它們的意圖欄是空的。<b>這條的故事由結構說完，不靠文字。</b>
+      點進去看完整時間軸 →
+    </p>
+  </a>
 
   <div class="grid">
     <a class="card" href="./vuejs-core/">
